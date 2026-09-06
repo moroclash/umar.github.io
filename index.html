@@ -361,6 +361,44 @@
         .marker-30 { animation: glow30 3.6s ease-in-out infinite; }
         .cursor { animation: cursorBlink 1.1s step-end infinite; }
         .twinkle-node { transform-box: fill-box; transform-origin: center; animation: twinkle 2.8s ease-in-out infinite; }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.25rem 1.5rem;
+            }
+
+            .tagline {
+                font-size: 0.65rem;
+            }
+
+            .user-profile span {
+                display: none;
+            }
+
+            .hero-container {
+                padding: 1.5rem;
+            }
+
+            .hero-title h1 {
+                font-size: 1.3rem;
+                letter-spacing: 0.04em;
+            }
+
+            .hero-sub {
+                font-size: 0.75rem;
+            }
+
+            /* Fine print in the scene is unreadable at this scale; keep only
+               the road, the marker, the figure and the slogan. */
+            .scene-detail {
+                display: none;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -442,7 +480,7 @@
                 </g>
 
                 <!-- ===== PAST: crossed-out goals ===== -->
-                <g font-family="monospace" font-size="13">
+                <g class="scene-detail" font-family="monospace" font-size="13">
                     <g class="flicker-el">
                         <circle cx="150" cy="540" r="4" fill="#f97316"/>
                         <text x="164" y="545" class="strike" fill="rgba(249,115,22,0.55)">STARTUP // FAILED</text>
@@ -461,14 +499,14 @@
                 </g>
 
                 <!-- ===== PAST: disappearing numbers ===== -->
-                <g font-family="monospace" fill="rgba(148,163,184,0.35)">
+                <g class="scene-detail" font-family="monospace" fill="rgba(148,163,184,0.35)">
                     <text x="210" y="440" font-size="26" class="frag">97%</text>
                     <text x="440" y="460" font-size="20" class="frag" style="animation-delay:-4s">$0</text>
                     <text x="340" y="340" font-size="18" class="frag" style="animation-delay:-7s">v1.0-alpha</text>
                 </g>
 
                 <!-- ===== PAST: cracked terminal fragment ===== -->
-                <g transform="translate(70,270) rotate(-4)" opacity="0.55">
+                <g class="scene-detail" transform="translate(70,270) rotate(-4)" opacity="0.55">
                     <rect width="230" height="120" rx="4" fill="rgba(10,14,24,0.6)" stroke="rgba(249,115,22,0.25)"/>
                     <line x1="14" y1="30" x2="216" y2="30" stroke="rgba(249,115,22,0.2)"/>
                     <text x="14" y="26" font-family="monospace" font-size="10" fill="rgba(249,115,22,0.6)">life.py &mdash; crashed</text>
@@ -493,8 +531,8 @@
                     <circle r="90" fill="url(#markerGlow)"/>
                     <line x1="0" y1="0" x2="0" y2="210" stroke="rgba(34,211,238,0.35)" stroke-width="2"/>
                     <text x="0" y="18" text-anchor="middle" font-family="monospace" font-weight="300" font-size="88" fill="rgba(226,232,240,0.16)" class="marker-30">30</text>
-                    <text x="0" y="70" text-anchor="middle" font-family="monospace" font-size="11" letter-spacing="2" fill="rgba(34,211,238,0.55)">MARKER &middot; AGE 30</text>
-                    <text x="0" y="88" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="1.5" fill="rgba(148,163,184,0.5)">STATUS: RECALIBRATING</text>
+                    <text class="scene-detail" x="0" y="70" text-anchor="middle" font-family="monospace" font-size="11" letter-spacing="2" fill="rgba(34,211,238,0.55)">MARKER &middot; AGE 30</text>
+                    <text class="scene-detail" x="0" y="88" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="1.5" fill="rgba(148,163,184,0.5)">STATUS: RECALIBRATING</text>
                 </g>
 
                 <!-- ===== Cracks / obstacles on the path ===== -->
@@ -516,7 +554,7 @@
                 <path d="M760,700 C 980,640 1400,430 1850,262" fill="none" stroke="rgba(34,211,238,0.18)" stroke-width="1.5"/>
 
                 <!-- Progress signs after the crack -->
-                <g font-family="monospace" font-size="12" fill="rgba(52,211,153,0.7)">
+                <g class="scene-detail" font-family="monospace" font-size="12" fill="rgba(52,211,153,0.7)">
                     <text x="915" y="686">+1 shipped</text>
                     <text x="1265" y="546">merged &#10003;</text>
                     <text x="1660" y="356">no rollback needed</text>
@@ -528,7 +566,7 @@
                 <circle cx="1650" cy="370" r="4" fill="#67e8f9" class="pulse-node" style="animation-delay:-1.1s"/>
 
                 <!-- Clean terminal fragment, future side -->
-                <g transform="translate(1120,760)" opacity="0.75">
+                <g class="scene-detail" transform="translate(1120,760)" opacity="0.75">
                     <rect width="230" height="96" rx="6" fill="rgba(10,14,24,0.55)" stroke="rgba(34,211,238,0.25)"/>
                     <text x="14" y="24" font-family="monospace" font-size="10" fill="rgba(34,211,238,0.7)">$ git commit -m "one more day"</text>
                     <text x="14" y="46" font-family="monospace" font-size="10" fill="rgba(148,163,184,0.6)">function keepGoing() {</text>
@@ -549,7 +587,7 @@
                 <circle cx="1610" cy="220" r="3.5" fill="#67e8f9" class="twinkle-node" style="animation-delay:-0.5s"/>
 
                 <!-- Drifting code fragments -->
-                <g font-family="monospace" font-size="12" fill="rgba(148,163,184,0.4)">
+                <g class="scene-detail" font-family="monospace" font-size="12" fill="rgba(148,163,184,0.4)">
                     <text x="980" y="300" class="frag" style="animation-delay:-2s">while (true) { survive(); }</text>
                     <text x="1300" y="220" class="frag" style="animation-delay:-6s">TODO: figure life out</text>
                     <text x="1550" y="420" class="frag" style="animation-delay:-9s">status: 200 (barely)</text>
@@ -589,7 +627,7 @@
                 </g>
 
                 <!-- data callout pinned near him -->
-                <g font-family="monospace" font-size="11" fill="rgba(226,232,240,0.55)">
+                <g class="scene-detail" font-family="monospace" font-size="11" fill="rgba(226,232,240,0.55)">
                     <line x1="862" y1="452" x2="915" y2="400" stroke="rgba(148,163,184,0.3)"/>
                     <text x="920" y="398">STATUS: STILL COMPILING</text>
                     <text x="920" y="414" fill="rgba(148,163,184,0.4)" font-size="10">no clean merge, no exit code yet</text>
@@ -598,7 +636,7 @@
                 <!-- ===== The story continues beyond the frame ===== -->
                 <path d="M1850,262 L1900,230" stroke="rgba(103,232,249,0.4)" stroke-width="2" stroke-dasharray="3 6"/>
                 <text x="1908" y="234" font-family="monospace" font-size="16" fill="rgba(103,232,249,0.6)" class="cursor">_</text>
-                <text x="1780" y="200" font-family="monospace" font-size="10" letter-spacing="1.5" fill="rgba(148,163,184,0.4)">...continued</text>
+                <text class="scene-detail" x="1780" y="200" font-family="monospace" font-size="10" letter-spacing="1.5" fill="rgba(148,163,184,0.4)">...continued</text>
             </svg>
         </div>
 
