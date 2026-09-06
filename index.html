@@ -3,15 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turning the Page | Developer Portfolio</title>
+    <title>Still Compiling | Developer Portfolio</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7PLB156WJK"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7PLB156WJK');
+    </script>
+
     <style>
         :root {
-            --bg-color: #0b0f19;
+            --bg-color: #05070c;
             --text-main: #94a3b8;
+            --text-dim: #64748b;
             --text-bright: #f8fafc;
-            --accent-cyan: #06b6d4;
+            --accent-cyan: #22d3ee;
+            --accent-cyan-dim: #0e7490;
             --accent-orange: #f97316;
-            --panel-bg: rgba(15, 23, 42, 0.65);
+            --panel-bg: rgba(10, 14, 24, 0.65);
             --panel-border: rgba(56, 189, 248, 0.15);
         }
 
@@ -22,13 +33,44 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
         }
 
-        body {
+        html, body {
             background-color: var(--bg-color);
+        }
+
+        body {
             color: var(--text-main);
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 10% 80%, rgba(249, 115, 22, 0.05) 0%, transparent 40%);
+            position: relative;
+            background-image:
+                radial-gradient(circle at 82% 15%, rgba(34, 211, 238, 0.07) 0%, transparent 42%),
+                radial-gradient(circle at 8% 85%, rgba(249, 115, 22, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 50% 100%, rgba(34, 211, 238, 0.04) 0%, transparent 60%);
+        }
+
+        /* Cinematic vignette + grain overlay, sits above scene, below panels */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+            background: radial-gradient(ellipse at 55% 45%, transparent 35%, rgba(0, 0, 0, 0.6) 100%);
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 6;
+            opacity: 0.35;
+            mix-blend-mode: overlay;
+            background: repeating-linear-gradient(
+                rgba(255, 255, 255, 0.02) 0px,
+                transparent 1px,
+                transparent 2px,
+                rgba(255, 255, 255, 0.02) 3px
+            );
         }
 
         /* Navigation */
@@ -45,10 +87,16 @@
         }
 
         .tagline {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 0.05em;
             color: #64748b;
             font-family: monospace;
+        }
+
+        .tagline strong {
+            color: var(--accent-cyan);
+            font-weight: 600;
+            letter-spacing: 0.1em;
         }
 
         .nav-links {
@@ -81,14 +129,14 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: #334155;
+            background: #1e293b;
             border: 1px solid var(--accent-cyan);
         }
 
         /* Hero Area */
         .hero-container {
             position: relative;
-            min-height: 85vh;
+            min-height: 92vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -97,22 +145,43 @@
 
         .hero-title {
             text-align: center;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
             z-index: 2;
         }
 
+        .eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.25em;
+            color: var(--accent-orange);
+            font-family: monospace;
+            opacity: 0.85;
+            margin-bottom: 0.9rem;
+        }
+
         .hero-title h1 {
-            font-size: 2rem;
-            letter-spacing: 0.2em;
+            font-size: 2.1rem;
+            letter-spacing: 0.08em;
             color: var(--text-bright);
             font-weight: 300;
+            line-height: 1.5;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .hero-title h1 span {
             color: var(--accent-cyan);
+            font-weight: 400;
         }
 
-        /* Interactive Canvas Scene */
+        .hero-sub {
+            margin-top: 0.9rem;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            font-family: monospace;
+            letter-spacing: 0.02em;
+        }
+
+        /* Scene canvas */
         .visual-mockup {
             position: absolute;
             top: 0;
@@ -121,15 +190,18 @@
             height: 100%;
             z-index: 1;
             pointer-events: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        }
+
+        .scene-svg {
+            width: 100%;
+            height: 100%;
+            display: block;
         }
 
         /* Content Overlay UI Elements */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: 280px 1fr 300px;
+            grid-template-columns: 300px 1fr 320px;
             gap: 2rem;
             z-index: 2;
             margin-top: auto;
@@ -163,21 +235,24 @@
 
         .code-block {
             font-family: monospace;
-            font-size: 0.75rem;
+            font-size: 0.74rem;
             color: #94a3b8;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .code-keyword { color: #f43f5e; }
         .code-func { color: #38bdf8; }
         .code-str { color: #34d399; }
+        .code-comment { color: #475569; }
+        .strike { text-decoration: line-through; color: #64748b; }
 
         .tech-list {
             list-style: none;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0.5rem;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
+            margin-bottom: 0.75rem;
         }
 
         .tech-item {
@@ -187,90 +262,362 @@
             color: var(--text-bright);
         }
 
+        .tech-item.beta {
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
         .dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
             background: var(--accent-cyan);
+            flex-shrink: 0;
         }
 
-        /* SVG Overlay Graphics */
-        .path-svg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
+        .quote-panel {
+            padding: 0.5rem 0 0.5rem 1rem;
+            border-left: 1px solid rgba(56, 189, 248, 0.2);
         }
+
+        .quote-panel p {
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .quote-panel span {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            color: var(--text-dim);
+            font-family: monospace;
+        }
+
+        .uptime-line {
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: monospace;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+            padding-top: 0.6rem;
+        }
+
+        /* ===== Scene animations ===== */
+        @keyframes dashFlow {
+            to { stroke-dashoffset: -240; }
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 0.55; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.7); }
+        }
+
+        @keyframes driftFrag {
+            0% { transform: translate(0, 0); opacity: 0.35; }
+            50% { opacity: 0.6; }
+            100% { transform: translate(-34px, -10px); opacity: 0.35; }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 0.22; }
+            45% { opacity: 0.08; }
+            60% { opacity: 0.45; }
+        }
+
+        @keyframes figureSway {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(-0.4deg); }
+        }
+
+        @keyframes shardDrift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.35; }
+            50% { transform: translate(-10px, 6px) rotate(8deg); opacity: 0.15; }
+        }
+
+        @keyframes glow30 {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.85; }
+        }
+
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.25; }
+            50% { opacity: 0.9; }
+        }
+
+        .anim-dash { stroke-dasharray: 10 14; animation: dashFlow 5s linear infinite; }
+        .anim-dash-slow { stroke-dasharray: 4 10; animation: dashFlow 9s linear infinite; }
+        .pulse-node { transform-box: fill-box; transform-origin: center; animation: pulseDot 3.2s ease-in-out infinite; }
+        .frag { transform-box: fill-box; animation: driftFrag 11s ease-in-out infinite; }
+        .flicker-el { animation: flicker 4.5s ease-in-out infinite; }
+        .man-figure { transform-box: fill-box; transform-origin: bottom center; animation: figureSway 4.2s ease-in-out infinite; }
+        .shard { transform-box: fill-box; transform-origin: center; animation: shardDrift 6s ease-in-out infinite; }
+        .marker-30 { animation: glow30 3.6s ease-in-out infinite; }
+        .cursor { animation: cursorBlink 1.1s step-end infinite; }
+        .twinkle-node { transform-box: fill-box; transform-origin: center; animation: twinkle 2.8s ease-in-out infinite; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="tagline">Frustrated. Exhausted. Resilient. Still moving.</div>
-        <ul class="nav-links">
-            <li><a href="#about">ABOUT</a></li>
-            <li><a href="#projects">PROJECTS</a></li>
-            <li><a href="#contributions">CONTRIBUTIONS</a></li>
-            <li><a href="#timeline">TIMELINE</a></li>
-        </ul>
+        <div class="tagline">STATUS: STILL RUNNING &middot; UPTIME: 30Y 214D</div>
         <div class="user-profile">
             <div class="avatar-placeholder"></div>
-            <span>Developer | @user30</span>
+            <span>Me | @still-pushing</span>
         </div>
     </nav>
 
     <div class="hero-container">
         <div class="hero-title">
-            <h1>TURNING THE PAGE. <span>NEW CHAPTER.</span></h1>
+            <div class="eyebrow">MILESTONE: AGE 30 &middot; BUILD STATUS: PASSED (BARELY)</div>
+            <h1>I TURNED 30. THE PLAN DIDN'T SURVIVE. <span>I DID.</span></h1>
+            <div class="hero-sub">Broken sprints. Missed releases. Zero rollbacks available. Still shipping &mdash; one commit at a time.</div>
         </div>
 
         <div class="visual-mockup">
-            <svg class="path-svg" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 450 L150 420 L250 480 L350 400 L450 430" stroke="rgba(249, 115, 22, 0.4)" stroke-width="3" stroke-dasharray="6 6"/>
-                <path d="M450 430 L550 410 L650 380" stroke="url(#cyan-grad)" stroke-width="4"/>
-                <path d="M650 380 L800 280 L950 320 L1100 180 L1200 150" stroke="url(#cyan-grad)" stroke-width="4"/>
-
-                <circle cx="350" cy="400" r="4" fill="#f97316"/>
-                <circle cx="650" cy="380" r="5" fill="#06b6d4"/>
-                <circle cx="800" cy="280" r="5" fill="#06b6d4"/>
-                <circle cx="1100" cy="180" r="6" fill="#38bdf8"/>
-
+            <svg class="scene-svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                    <linearGradient id="cyan-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#06b6d4" />
-                        <stop offset="100%" stop-color="#38bdf8" />
+                    <linearGradient id="cleanGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#22d3ee" />
+                        <stop offset="100%" stop-color="#67e8f9" />
                     </linearGradient>
+                    <linearGradient id="chaosGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#7c2d12" />
+                        <stop offset="100%" stop-color="#f97316" />
+                    </linearGradient>
+                    <radialGradient id="markerGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.35" />
+                        <stop offset="100%" stop-color="#22d3ee" stop-opacity="0" />
+                    </radialGradient>
+                    <pattern id="cleanGrid" width="64" height="64" patternUnits="userSpaceOnUse">
+                        <path d="M64 0H0V64" fill="none" stroke="rgba(56,189,248,0.07)" stroke-width="1"/>
+                    </pattern>
+                    <pattern id="contribGraph" width="76" height="64" patternUnits="userSpaceOnUse">
+                        <rect x="4" y="6" width="11" height="11" rx="2" fill="rgba(34,211,238,0.12)"/>
+                        <rect x="20" y="6" width="11" height="11" rx="2" fill="rgba(34,211,238,0.22)"/>
+                        <rect x="36" y="6" width="11" height="11" rx="2" fill="rgba(34,211,238,0.06)"/>
+                        <rect x="52" y="6" width="11" height="11" rx="2" fill="rgba(34,211,238,0.32)"/>
+                        <rect x="4" y="24" width="11" height="11" rx="2" fill="rgba(34,211,238,0.28)"/>
+                        <rect x="20" y="24" width="11" height="11" rx="2" fill="rgba(34,211,238,0.09)"/>
+                        <rect x="36" y="24" width="11" height="11" rx="2" fill="rgba(34,211,238,0.18)"/>
+                        <rect x="52" y="24" width="11" height="11" rx="2" fill="rgba(34,211,238,0.05)"/>
+                        <rect x="4" y="42" width="11" height="11" rx="2" fill="rgba(34,211,238,0.08)"/>
+                        <rect x="20" y="42" width="11" height="11" rx="2" fill="rgba(34,211,238,0.30)"/>
+                        <rect x="36" y="42" width="11" height="11" rx="2" fill="rgba(34,211,238,0.14)"/>
+                        <rect x="52" y="42" width="11" height="11" rx="2" fill="rgba(34,211,238,0.20)"/>
+                    </pattern>
                 </defs>
+
+                <!-- Clean grid emerging on the right, direction of travel -->
+                <rect x="860" y="0" width="1060" height="1080" fill="url(#cleanGrid)"/>
+
+                <!-- Broken grid fragments, left / past side -->
+                <g stroke-width="1">
+                    <line x1="0" y1="140" x2="240" y2="140" stroke="rgba(249,115,22,0.14)"/>
+                    <line x1="300" y1="140" x2="520" y2="140" stroke="rgba(249,115,22,0.1)" stroke-dasharray="3 9"/>
+                    <line x1="120" y1="0" x2="120" y2="220" stroke="rgba(249,115,22,0.12)"/>
+                    <line x1="360" y1="60" x2="360" y2="260" stroke="rgba(249,115,22,0.08)" stroke-dasharray="2 8"/>
+                    <line x1="40" y1="640" x2="260" y2="600" stroke="rgba(249,115,22,0.1)"/>
+                    <line x1="0" y1="920" x2="200" y2="960" stroke="rgba(249,115,22,0.1)" stroke-dasharray="3 7"/>
+                </g>
+
+                <!-- ===== PAST: ghost silhouettes of old versions of himself ===== -->
+                <g class="flicker-el" opacity="0.2">
+                    <circle cx="120" cy="700" r="13" fill="#475569"/>
+                    <path d="M100,716 L140,716 L146,780 L94,780 Z" fill="#334155"/>
+                </g>
+                <g class="flicker-el" style="animation-delay:-1.5s" opacity="0.14">
+                    <circle cx="270" cy="770" r="9" fill="#475569"/>
+                    <path d="M256,782 L284,782 L288,828 L252,828 Z" fill="#334155"/>
+                </g>
+                <g class="flicker-el" style="animation-delay:-3s" opacity="0.09">
+                    <circle cx="410" cy="820" r="6" fill="#475569"/>
+                    <path d="M401,828 L419,828 L421,858 L399,858 Z" fill="#334155"/>
+                </g>
+
+                <!-- ===== PAST: crossed-out goals ===== -->
+                <g font-family="monospace" font-size="13">
+                    <g class="flicker-el">
+                        <circle cx="150" cy="540" r="4" fill="#f97316"/>
+                        <text x="164" y="545" class="strike" fill="rgba(249,115,22,0.55)">STARTUP // FAILED</text>
+                        <line x1="164" y1="540" x2="280" y2="540" stroke="rgba(249,115,22,0.4)"/>
+                    </g>
+                    <g class="flicker-el" style="animation-delay:-2s">
+                        <circle cx="330" cy="600" r="4" fill="#f97316"/>
+                        <text x="344" y="605" class="strike" fill="rgba(249,115,22,0.5)">RELATIONSHIP v2 // ARCHIVED</text>
+                        <line x1="344" y1="600" x2="530" y2="600" stroke="rgba(249,115,22,0.35)"/>
+                    </g>
+                    <g class="flicker-el" style="animation-delay:-1s">
+                        <circle cx="500" cy="500" r="4" fill="#f97316"/>
+                        <text x="514" y="505" class="strike" fill="rgba(249,115,22,0.5)">5-YEAR PLAN // NULL</text>
+                        <line x1="514" y1="500" x2="640" y2="500" stroke="rgba(249,115,22,0.35)"/>
+                    </g>
+                </g>
+
+                <!-- ===== PAST: disappearing numbers ===== -->
+                <g font-family="monospace" fill="rgba(148,163,184,0.35)">
+                    <text x="210" y="440" font-size="26" class="frag">97%</text>
+                    <text x="440" y="460" font-size="20" class="frag" style="animation-delay:-4s">$0</text>
+                    <text x="340" y="340" font-size="18" class="frag" style="animation-delay:-7s">v1.0-alpha</text>
+                </g>
+
+                <!-- ===== PAST: cracked terminal fragment ===== -->
+                <g transform="translate(70,270) rotate(-4)" opacity="0.55">
+                    <rect width="230" height="120" rx="4" fill="rgba(10,14,24,0.6)" stroke="rgba(249,115,22,0.25)"/>
+                    <line x1="14" y1="30" x2="216" y2="30" stroke="rgba(249,115,22,0.2)"/>
+                    <text x="14" y="26" font-family="monospace" font-size="10" fill="rgba(249,115,22,0.6)">life.py &mdash; crashed</text>
+                    <text x="14" y="52" font-family="monospace" font-size="10" fill="rgba(148,163,184,0.6)">Traceback (most recent call last):</text>
+                    <text x="14" y="70" font-family="monospace" font-size="10" fill="rgba(148,163,184,0.6)">&nbsp;&nbsp;File "life.py", line 30</text>
+                    <text x="14" y="88" font-family="monospace" font-size="10" fill="#f97316">PlanError: expected != actual</text>
+                    <line x1="30" y1="0" x2="10" y2="120" stroke="rgba(5,7,12,0.8)" stroke-width="2"/>
+                </g>
+
+                <!-- ===== The life-progress graph: chaotic segment ===== -->
+                <path d="M0,760 L70,700 L140,830 L210,760 L260,900 L320,840 L380,950 L440,880 L500,910 L560,860"
+                      fill="none" stroke="url(#chaosGrad)" stroke-width="3.5" class="anim-dash-slow" opacity="0.85"/>
+                <circle cx="140" cy="830" r="4" fill="#f97316" class="pulse-node"/>
+                <circle cx="380" cy="950" r="4" fill="#f97316" class="pulse-node" style="animation-delay:-1.4s"/>
+                <circle cx="560" cy="860" r="5" fill="#fb923c" class="pulse-node" style="animation-delay:-2.1s"/>
+
+                <!-- Transition segment, smoothing -->
+                <path d="M560,860 L620,822 L680,792 L760,760" fill="none" stroke="#eab308" stroke-width="3.5" opacity="0.75"/>
+
+                <!-- ===== 30 Milestone marker ===== -->
+                <g transform="translate(700,560)">
+                    <circle r="90" fill="url(#markerGlow)"/>
+                    <line x1="0" y1="0" x2="0" y2="210" stroke="rgba(34,211,238,0.35)" stroke-width="2"/>
+                    <text x="0" y="18" text-anchor="middle" font-family="monospace" font-weight="300" font-size="88" fill="rgba(226,232,240,0.16)" class="marker-30">30</text>
+                    <text x="0" y="70" text-anchor="middle" font-family="monospace" font-size="11" letter-spacing="2" fill="rgba(34,211,238,0.55)">MARKER &middot; AGE 30</text>
+                    <text x="0" y="88" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="1.5" fill="rgba(148,163,184,0.5)">STATUS: RECALIBRATING</text>
+                </g>
+
+                <!-- ===== Cracks / obstacles on the path ===== -->
+                <g stroke="rgba(15,23,42,0.9)" stroke-width="2">
+                    <path d="M640,795 L648,780 L642,770 L652,758" fill="none"/>
+                    <path d="M900,712 L892,698 L900,688" fill="none"/>
+                </g>
+                <ellipse cx="820" cy="740" rx="10" ry="4" fill="rgba(5,7,12,0.7)"/>
+
+                <!-- ===== Clean segment: rises into the distance, becomes the road ===== -->
+                <path id="roadPath" d="M760,760 L900,700 L1050,640 L1250,560 L1450,470 L1650,370 L1850,262"
+                      fill="none" stroke="url(#cleanGrad)" stroke-width="5" class="anim-dash" filter="drop-shadow(0 0 6px rgba(34,211,238,0.5))"/>
+
+                <!-- Slogan, floating above the road, angled to match its climb -->
+                <text x="950" y="560" transform="rotate(-27 950 560)" font-family="monospace" font-style="italic" font-size="34" letter-spacing="4" fill="rgba(249,115,22,0.85)" filter="drop-shadow(0 0 8px rgba(249,115,22,0.5))">Live another day &#9904;</text>
+
+                <!-- Road rails, perspective toward vanishing point -->
+                <path d="M760,860 C 980,760 1400,520 1850,262" fill="none" stroke="rgba(34,211,238,0.18)" stroke-width="1.5"/>
+                <path d="M760,700 C 980,640 1400,430 1850,262" fill="none" stroke="rgba(34,211,238,0.18)" stroke-width="1.5"/>
+
+                <!-- Progress signs after the crack -->
+                <g font-family="monospace" font-size="12" fill="rgba(52,211,153,0.7)">
+                    <text x="915" y="686">+1 shipped</text>
+                    <text x="1265" y="546">merged &#10003;</text>
+                    <text x="1660" y="356">no rollback needed</text>
+                </g>
+
+                <!-- Node / commit markers along the clean path -->
+                <circle cx="1050" cy="640" r="5" fill="#22d3ee" class="pulse-node" style="animation-delay:-0.6s"/>
+                <circle cx="1450" cy="470" r="5" fill="#22d3ee" class="pulse-node" style="animation-delay:-2.4s"/>
+                <circle cx="1650" cy="370" r="4" fill="#67e8f9" class="pulse-node" style="animation-delay:-1.1s"/>
+
+                <!-- Clean terminal fragment, future side -->
+                <g transform="translate(1120,760)" opacity="0.75">
+                    <rect width="230" height="96" rx="6" fill="rgba(10,14,24,0.55)" stroke="rgba(34,211,238,0.25)"/>
+                    <text x="14" y="24" font-family="monospace" font-size="10" fill="rgba(34,211,238,0.7)">$ git commit -m "one more day"</text>
+                    <text x="14" y="46" font-family="monospace" font-size="10" fill="rgba(148,163,184,0.6)">function keepGoing() {</text>
+                    <text x="14" y="64" font-family="monospace" font-size="10" fill="rgba(148,163,184,0.6)">&nbsp;&nbsp;while (alive) { ship(); }</text>
+                    <text x="14" y="82" font-family="monospace" font-size="10" fill="rgba(148,163,184,0.6)">}</text>
+                </g>
+
+                <!-- Contribution constellation, top right -->
+                <rect x="1430" y="60" width="380" height="210" fill="url(#contribGraph)" opacity="0.9"/>
+                <g stroke="rgba(34,211,238,0.25)" stroke-width="1">
+                    <line x1="1520" y1="110" x2="1640" y2="150"/>
+                    <line x1="1640" y1="150" x2="1740" y2="100"/>
+                    <line x1="1640" y1="150" x2="1610" y2="220"/>
+                </g>
+                <circle cx="1520" cy="110" r="4" fill="#67e8f9" class="twinkle-node"/>
+                <circle cx="1640" cy="150" r="5" fill="#22d3ee" class="twinkle-node" style="animation-delay:-1s"/>
+                <circle cx="1740" cy="100" r="3.5" fill="#67e8f9" class="twinkle-node" style="animation-delay:-2s"/>
+                <circle cx="1610" cy="220" r="3.5" fill="#67e8f9" class="twinkle-node" style="animation-delay:-0.5s"/>
+
+                <!-- Drifting code fragments -->
+                <g font-family="monospace" font-size="12" fill="rgba(148,163,184,0.4)">
+                    <text x="980" y="300" class="frag" style="animation-delay:-2s">while (true) { survive(); }</text>
+                    <text x="1300" y="220" class="frag" style="animation-delay:-6s">TODO: figure life out</text>
+                    <text x="1550" y="420" class="frag" style="animation-delay:-9s">status: 200 (barely)</text>
+                </g>
+
+                <!-- ===== The man, mid-stride, crossing the 30 marker onto the clean road ===== -->
+                <!-- Positioning lives on this static wrapper: an animated `transform` on a child
+                     element replaces rather than composes with an SVG transform attribute, so the
+                     placement and the sway animation must sit on separate nested groups. -->
+                <g transform="translate(715,387) scale(0.85)">
+                <g class="man-figure" filter="drop-shadow(0 0 14px rgba(34,211,238,0.2))">
+                    <!-- fragments breaking away from his trailing / past side -->
+                    <polygon class="shard" points="-140,80 -122,68 -128,100" fill="rgba(249,115,22,0.35)"/>
+                    <polygon class="shard" style="animation-delay:-2s" points="-158,140 -140,132 -146,162" fill="rgba(249,115,22,0.28)"/>
+                    <polygon class="shard" style="animation-delay:-4s" points="-130,190 -112,182 -118,210" fill="rgba(249,115,22,0.22)"/>
+
+                    <!-- back leg, trailing, heel lifted mid-stride -->
+                    <polygon points="102,222 70,272 48,330 82,345 100,285" fill="#161f30" stroke="rgba(249,115,22,0.45)" stroke-width="2"/>
+                    <!-- back arm, hanging back, low energy -->
+                    <polygon points="100,90 60,145 78,210 112,150" fill="#161f30" stroke="rgba(249,115,22,0.45)" stroke-width="2"/>
+
+                    <!-- torso, leaning forward -->
+                    <polygon points="95,78 150,72 178,150 160,230 100,225 68,150" fill="#182234" stroke="rgba(34,211,238,0.5)" stroke-width="2"/>
+                    <!-- neck -->
+                    <polygon points="122,60 150,72 148,88 120,80" fill="#182234" stroke="rgba(34,211,238,0.4)" stroke-width="1.5"/>
+                    <!-- head, tilted slightly forward: tired, not broken -->
+                    <polygon points="140,8 168,18 172,52 150,72 122,60 118,26" fill="#182234" stroke="rgba(34,211,238,0.55)" stroke-width="2"/>
+
+                    <!-- front arm, swinging forward -->
+                    <polygon points="152,88 185,135 178,190 150,145" fill="#161f30" stroke="rgba(34,211,238,0.5)" stroke-width="2"/>
+                    <!-- front leg, planted, weight-bearing -->
+                    <polygon points="150,222 182,285 190,360 218,368 196,373 160,300" fill="#161f30" stroke="rgba(34,211,238,0.55)" stroke-width="2"/>
+
+                    <!-- quiet forward rim light -->
+                    <line x1="178" y1="150" x2="190" y2="360" stroke="rgba(34,211,238,0.35)" stroke-width="1.5"/>
+                </g>
+                </g>
+
+                <!-- data callout pinned near him -->
+                <g font-family="monospace" font-size="11" fill="rgba(226,232,240,0.55)">
+                    <line x1="862" y1="452" x2="915" y2="400" stroke="rgba(148,163,184,0.3)"/>
+                    <text x="920" y="398">STATUS: STILL COMPILING</text>
+                    <text x="920" y="414" fill="rgba(148,163,184,0.4)" font-size="10">no clean merge, no exit code yet</text>
+                </g>
+
+                <!-- ===== The story continues beyond the frame ===== -->
+                <path d="M1850,262 L1900,230" stroke="rgba(103,232,249,0.4)" stroke-width="2" stroke-dasharray="3 6"/>
+                <text x="1908" y="234" font-family="monospace" font-size="16" fill="rgba(103,232,249,0.6)" class="cursor">_</text>
+                <text x="1780" y="200" font-family="monospace" font-size="10" letter-spacing="1.5" fill="rgba(148,163,184,0.4)">...continued</text>
             </svg>
         </div>
 
         <div class="dashboard-grid">
             <div class="panel legacy-panel">
-                <div class="panel-header">Legacy Stack Catacombs</div>
+                <div class="panel-header">Legacy Stack // Deprecated</div>
                 <div class="code-block">
-                    &gt; terminal --logs<br>
-                    <span style="color: #64748b;">// 30 years of iterations</span><br>
-                    <span class="code-keyword">catch</span> (LifeException e) {<br>
-                    &nbsp;&nbsp;keepMoving();<br>
-                    }<br>
-                    <span style="color: var(--accent-orange);">&gt; NEW REPO &gt;_</span>
+                    $ git log --oneline --all<br>
+                    a3f21 <span class="code-str">fix:</span> another 5-year plan<br>
+                    8b410 <span class="code-keyword">revert:</span> whole your-20s branch<br>
+                    1c9e0 <span class="code-func">chore:</span> archive childhood expectations<br>
+                    <span class="code-comment">// 30 commits later, still no clean merge</span>
                 </div>
             </div>
 
             <div></div>
-
-            <div class="panel">
-                <div class="panel-header">Active Contributions</div>
-                <ul class="tech-list">
-                    <li class="tech-item"><span class="dot"></span>Rust</li>
-                    <li class="tech-item"><span class="dot"></span>TypeScript</li>
-                    <li class="tech-item"><span class="dot"></span>Wasm</li>
-                    <li class="tech-item"><span class="dot"></span>System Architecture</li>
-                    <li class="tech-item"><span class="dot"></span>Kubernetes</li>
-                    <li class="tech-item"><span class="dot"></span>Next.js</li>
-                </ul>
+            <div class="quote-panel">
+                <p>&ldquo;If you want to live a happy life, tie it to a goal, not to people or things.&rdquo;</p>
+                <span>&mdash; Albert Einstein</span>
             </div>
         </div>
     </div>
