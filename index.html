@@ -397,6 +397,39 @@
             .dashboard-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
+                margin-top: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-container {
+                min-height: auto;
+            }
+
+            /* The full 1920-wide scene would shrink to a tiny sliver on a phone,
+               leaving dead space above/below. `object-fit` has no effect on an
+               inline <svg>, so the crop is done by hand: oversize the SVG,
+               clip it, and pan with `transform` to center the focal cluster
+               (marker, figure, slogan). */
+            .visual-mockup {
+                position: relative;
+                height: 48vh;
+                min-height: 320px;
+                margin: 1.5rem 0;
+                overflow: hidden;
+            }
+
+            .scene-svg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 230%;
+                height: 230%;
+                transform: translate(-18.9%, -29.1%);
+            }
+
+            .dashboard-grid {
+                margin-top: 0;
             }
         }
     </style>
