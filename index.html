@@ -576,8 +576,12 @@
                 <ellipse cx="820" cy="740" rx="10" ry="4" fill="rgba(5,7,12,0.7)"/>
 
                 <!-- ===== Clean segment: rises into the distance, becomes the road ===== -->
+                <!-- Filter lives on this static wrapper, not the animated path: an SVG filter
+                     combined with a CSS animation on the same element flickers on/off on iOS. -->
+                <g filter="drop-shadow(0 0 6px rgba(34,211,238,0.5))">
                 <path id="roadPath" d="M760,760 L900,700 L1050,640 L1250,560 L1450,470 L1650,370 L1850,262"
-                      fill="none" stroke="url(#cleanGrad)" stroke-width="5" class="anim-dash" filter="drop-shadow(0 0 6px rgba(34,211,238,0.5))"/>
+                      fill="none" stroke="url(#cleanGrad)" stroke-width="5" class="anim-dash"/>
+                </g>
 
                 <!-- Slogan, floating above the road, angled to match its climb -->
                 <text x="950" y="560" transform="rotate(-27 950 560)" font-family="monospace" font-style="italic" font-size="34" letter-spacing="4" fill="rgba(249,115,22,0.85)" filter="drop-shadow(0 0 8px rgba(249,115,22,0.5))">Live another day &#9904;</text>
@@ -629,9 +633,11 @@
                 <!-- ===== The man, mid-stride, crossing the 30 marker onto the clean road ===== -->
                 <!-- Positioning lives on this static wrapper: an animated `transform` on a child
                      element replaces rather than composes with an SVG transform attribute, so the
-                     placement and the sway animation must sit on separate nested groups. -->
-                <g transform="translate(715,387) scale(0.85)">
-                <g class="man-figure" filter="drop-shadow(0 0 14px rgba(34,211,238,0.2))">
+                     placement and the sway animation must sit on separate nested groups. The glow
+                     filter also lives here rather than on the animated child: a filter combined
+                     with a CSS animation on the same element flickers on/off on iOS. -->
+                <g transform="translate(715,387) scale(0.85)" filter="drop-shadow(0 0 14px rgba(34,211,238,0.2))">
+                <g class="man-figure">
                     <!-- fragments breaking away from his trailing / past side -->
                     <polygon class="shard" points="-140,80 -122,68 -128,100" fill="rgba(249,115,22,0.35)"/>
                     <polygon class="shard" style="animation-delay:-2s" points="-158,140 -140,132 -146,162" fill="rgba(249,115,22,0.28)"/>
