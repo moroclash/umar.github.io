@@ -1,202 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Level 30+ | The Journey Continues</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background-color: #0b0d17;
-      color: #ffffff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
-    .container {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 2rem;
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 24px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-      max-width: 480px;
-      width: 90%;
-    }
-    .badge {
-      display: inline-block;
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      letter-spacing: 3px;
-      color: #6366f1;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      padding: 6px 16px;
-      background: rgba(99, 102, 241, 0.1);
-      border-radius: 20px;
-      border: 1px solid rgba(99, 102, 241, 0.2);
-    }
-    .counter-wrapper {
-      font-size: 5rem;
-      font-weight: 800;
-      line-height: 1;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .pulse-plus {
-      color: #6366f1;
-      -webkit-text-fill-color: #6366f1;
-      display: inline-block;
-      animation: pulse 1.5s infinite alternate ease-in-out;
-    }
-    h1 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      letter-spacing: -0.5px;
-    }
-    p {
-      color: #94a3b8;
-      font-size: 1rem;
-      line-height: 1.6;
-      margin-bottom: 2rem;
-    }
-    .status-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-size: 0.875rem;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .indicator {
-      width: 8px;
-      height: 8px;
-      background-color: #22c55e;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #22c55e;
-      display: inline-block;
-      margin-right: 8px;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 0.8; }
-      100% { transform: scale(1.25); opacity: 1; filter: drop-shadow(0 0 12px #6366f1); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turning the Page | Developer Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --text-main: #94a3b8;
+            --text-bright: #f8fafc;
+            --accent-cyan: #06b6d4;
+            --accent-orange: #f97316;
+            --panel-bg: rgba(15, 23, 42, 0.65);
+            --panel-border: rgba(56, 189, 248, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 10% 80%, rgba(249, 115, 22, 0.05) 0%, transparent 40%);
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            color: #64748b;
+            font-family: monospace;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-bright);
+        }
+
+        .avatar-placeholder {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #334155;
+            border: 1px solid var(--accent-cyan);
+        }
+
+        /* Hero Area */
+        .hero-container {
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 3rem;
+        }
+
+        .hero-title {
+            text-align: center;
+            margin-top: 1rem;
+            z-index: 2;
+        }
+
+        .hero-title h1 {
+            font-size: 2rem;
+            letter-spacing: 0.2em;
+            color: var(--text-bright);
+            font-weight: 300;
+        }
+
+        .hero-title h1 span {
+            color: var(--accent-cyan);
+        }
+
+        /* Interactive Canvas Scene */
+        .visual-mockup {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Content Overlay UI Elements */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr 300px;
+            gap: 2rem;
+            z-index: 2;
+            margin-top: auto;
+            align-items: end;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .panel-header {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--accent-cyan);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .legacy-panel {
+            border-color: rgba(249, 115, 22, 0.2);
+        }
+
+        .legacy-panel .panel-header {
+            color: var(--accent-orange);
+        }
+
+        .code-block {
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .code-keyword { color: #f43f5e; }
+        .code-func { color: #38bdf8; }
+        .code-str { color: #34d399; }
+
+        .tech-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-bright);
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+        }
+
+        /* SVG Overlay Graphics */
+        .path-svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+    </style>
 </head>
 <body>
 
-  <canvas id="canvas"></canvas>
+    <nav>
+        <div class="tagline">Frustrated. Exhausted. Resilient. Still moving.</div>
+        <ul class="nav-links">
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#projects">PROJECTS</a></li>
+            <li><a href="#contributions">CONTRIBUTIONS</a></li>
+            <li><a href="#timeline">TIMELINE</a></li>
+        </ul>
+        <div class="user-profile">
+            <div class="avatar-placeholder"></div>
+            <span>Developer | @user30</span>
+        </div>
+    </nav>
 
-  <main class="container">
-    <span class="badge">Milestone Unlocked</span>
-    <div class="counter-wrapper">
-      <span id="counter">0</span><span class="pulse-plus">+</span>
+    <div class="hero-container">
+        <div class="hero-title">
+            <h1>TURNING THE PAGE. <span>NEW CHAPTER.</span></h1>
+        </div>
+
+        <div class="visual-mockup">
+            <svg class="path-svg" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 450 L150 420 L250 480 L350 400 L450 430" stroke="rgba(249, 115, 22, 0.4)" stroke-width="3" stroke-dasharray="6 6"/>
+                <path d="M450 430 L550 410 L650 380" stroke="url(#cyan-grad)" stroke-width="4"/>
+                <path d="M650 380 L800 280 L950 320 L1100 180 L1200 150" stroke="url(#cyan-grad)" stroke-width="4"/>
+
+                <circle cx="350" cy="400" r="4" fill="#f97316"/>
+                <circle cx="650" cy="380" r="5" fill="#06b6d4"/>
+                <circle cx="800" cy="280" r="5" fill="#06b6d4"/>
+                <circle cx="1100" cy="180" r="6" fill="#38bdf8"/>
+
+                <defs>
+                    <linearGradient id="cyan-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#06b6d4" />
+                        <stop offset="100%" stop-color="#38bdf8" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="panel legacy-panel">
+                <div class="panel-header">Legacy Stack Catacombs</div>
+                <div class="code-block">
+                    &gt; terminal --logs<br>
+                    <span style="color: #64748b;">// 30 years of iterations</span><br>
+                    <span class="code-keyword">catch</span> (LifeException e) {<br>
+                    &nbsp;&nbsp;keepMoving();<br>
+                    }<br>
+                    <span style="color: var(--accent-orange);">&gt; NEW REPO &gt;_</span>
+                </div>
+            </div>
+
+            <div></div>
+
+            <div class="panel">
+                <div class="panel-header">Active Contributions</div>
+                <ul class="tech-list">
+                    <li class="tech-item"><span class="dot"></span>Rust</li>
+                    <li class="tech-item"><span class="dot"></span>TypeScript</li>
+                    <li class="tech-item"><span class="dot"></span>Wasm</li>
+                    <li class="tech-item"><span class="dot"></span>System Architecture</li>
+                    <li class="tech-item"><span class="dot"></span>Kubernetes</li>
+                    <li class="tech-item"><span class="dot"></span>Next.js</li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <h1>30 Years & Still Compounding</h1>
-    <p>30 years of experience loaded into main memory. System optimized, energy steady, and expanding into new horizons.</p>
-    
-    <div class="status-bar">
-      <div><span class="indicator"></span>Status: Active & Growing</div>
-      <div style="color: #6366f1; font-weight: 600;">v3.0.1</div>
-    </div>
-  </main>
 
-  <script>
-    // Counter Animation
-    const counterElement = document.getElementById('counter');
-    const target = 30;
-    const duration = 2000;
-    const start = performance.now();
-
-    function updateCounter(currentTime) {
-      const elapsed = currentTime - start;
-      const progress = Math.min(elapsed / duration, 1);
-      
-      // Ease out expo formula
-      const current = Math.floor(progress === 1 ? target : target * (1 - Math.pow(2, -10 * progress)));
-      counterElement.textContent = current;
-
-      if (progress < 1) {
-        requestAnimationFrame(updateCounter);
-      }
-    }
-    requestAnimationFrame(updateCounter);
-
-    // Particle Canvas Background
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    let width, height, particles;
-
-    function initCanvas() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      particles = [];
-      const particleCount = Math.floor((width * height) / 15000);
-
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          radius: Math.random() * 2 + 1,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: -Math.random() * 0.8 - 0.2, // Continuous upward motion
-          alpha: Math.random() * 0.5 + 0.2
-        });
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-
-      particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Reset particles at bottom when they float off top
-        if (p.y < 0) {
-          p.y = height;
-          p.x = Math.random() * width;
-        }
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(165, 180, 252, ${p.alpha})`;
-        ctx.fill();
-      });
-
-      requestAnimationFrame(animate);
-    }
-
-    window.addEventListener('resize', initCanvas);
-    initCanvas();
-    animate();
-  </script>
 </body>
 </html>
