@@ -351,16 +351,16 @@
             50% { opacity: 0.9; }
         }
 
-        .anim-dash { stroke-dasharray: 10 14; animation: dashFlow 5s linear infinite; }
-        .anim-dash-slow { stroke-dasharray: 4 10; animation: dashFlow 9s linear infinite; }
-        .pulse-node { transform-box: fill-box; transform-origin: center; animation: pulseDot 3.2s ease-in-out infinite; }
-        .frag { transform-box: fill-box; animation: driftFrag 11s ease-in-out infinite; }
-        .flicker-el { animation: flicker 4.5s ease-in-out infinite; }
-        .man-figure { transform-box: fill-box; transform-origin: bottom center; animation: figureSway 4.2s ease-in-out infinite; }
-        .shard { transform-box: fill-box; transform-origin: center; animation: shardDrift 6s ease-in-out infinite; }
-        .marker-30 { animation: glow30 3.6s ease-in-out infinite; }
-        .cursor { animation: cursorBlink 1.1s step-end infinite; }
-        .twinkle-node { transform-box: fill-box; transform-origin: center; animation: twinkle 2.8s ease-in-out infinite; }
+        .anim-dash { stroke-dasharray: 10 14; animation: dashFlow 5s linear infinite; will-change: stroke-dashoffset; }
+        .anim-dash-slow { stroke-dasharray: 4 10; animation: dashFlow 9s linear infinite; will-change: stroke-dashoffset; }
+        .pulse-node { transform-box: fill-box; transform-origin: center; animation: pulseDot 3.2s ease-in-out infinite; will-change: transform, opacity; }
+        .frag { transform-box: fill-box; animation: driftFrag 11s ease-in-out infinite; will-change: transform, opacity; }
+        .flicker-el { animation: flicker 4.5s ease-in-out infinite; will-change: opacity; }
+        .man-figure { transform-box: fill-box; transform-origin: bottom center; animation: figureSway 4.2s ease-in-out infinite; will-change: transform; }
+        .shard { transform-box: fill-box; transform-origin: center; animation: shardDrift 6s ease-in-out infinite; will-change: transform, opacity; }
+        .marker-30 { animation: glow30 3.6s ease-in-out infinite; will-change: opacity; }
+        .cursor { animation: cursorBlink 1.1s step-end infinite; will-change: opacity; }
+        .twinkle-node { transform-box: fill-box; transform-origin: center; animation: twinkle 2.8s ease-in-out infinite; will-change: opacity; }
 
         @media (max-width: 768px) {
             nav {
@@ -425,7 +425,25 @@
                 left: 0;
                 width: 230%;
                 height: 230%;
+                will-change: transform;
+                transform-style: preserve-3d;
                 transform: translate(-18.9%, -29.1%);
+            }
+
+            /* Full-size slogan runs past the cropped edge on a phone; shrink it
+               so the whole line stays inside the visible frame. */
+            .slogan-text {
+                font-size: 20px;
+                letter-spacing: 1px;
+            }
+
+            /* The 768px rule hides fine print because it'd be unreadably small
+               once the whole 1920-wide scene is shrunk to fit. That doesn't
+               apply here: this breakpoint zooms into the scene instead of
+               shrinking it, so the flickering background details are back to
+               a legible size and can stay visible. */
+            .scene-detail {
+                display: unset;
             }
 
             .dashboard-grid {
@@ -584,7 +602,7 @@
                 </g>
 
                 <!-- Slogan, floating above the road, angled to match its climb -->
-                <text x="950" y="560" transform="rotate(-27 950 560)" font-family="monospace" font-style="italic" font-size="34" letter-spacing="4" fill="rgba(249,115,22,0.85)" filter="drop-shadow(0 0 8px rgba(249,115,22,0.5))">Live another day &#9904;</text>
+                <text class="slogan-text" x="950" y="560" transform="rotate(-27 950 560)" font-family="monospace" font-style="italic" font-size="34" letter-spacing="4" fill="rgba(249,115,22,0.85)" filter="drop-shadow(0 0 8px rgba(249,115,22,0.5))">Live another day &#9904;</text>
 
                 <!-- Road rails, perspective toward vanishing point -->
                 <path d="M760,860 C 980,760 1400,520 1850,262" fill="none" stroke="rgba(34,211,238,0.18)" stroke-width="1.5"/>
